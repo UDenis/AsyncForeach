@@ -1,4 +1,5 @@
 (function(name, context) {
+
     var toString = {}.toString,
         noop = function() {},
         objKeys;
@@ -59,4 +60,5 @@
     };
 
     context[name] = asyncForeach;
+
 })('asyncForeach', window);

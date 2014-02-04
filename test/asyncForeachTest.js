@@ -1,5 +1,5 @@
-// Async foreach test
 (function() {
+
     var each = asyncForeach;
 
     // Usage example
