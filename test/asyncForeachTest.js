@@ -119,57 +119,60 @@
     expect(35);
 
     var self = this,
-      testForEmpty = function(obj) {
-        var doneSpy = self.spy(),
-          iteratorSpy = self.spy(iterator),
-          asyncIterator = self.spy(),
-          iterator;
+      testForEmpty,
+      testWithoutDone;
 
-        iterator = function(item, intex, done) {
-          setTimeout(function() {
-            asyncIterator();
-            done();
-          }, 100);
-        };
+    testForEmpty = function(obj) {
+      var doneSpy = self.spy(),
+        iteratorSpy = self.spy(iterator),
+        asyncIterator = self.spy(),
+        iterator;
 
-        each(obj, iteratorSpy, doneSpy);
-
-        ok(!doneSpy.called, "цикл и не начался");
-        ok(!iteratorSpy.called, "цикл и не начался");
-        ok(!asyncIterator.called, "цикл и не начался");
-
-        self.clock.tick(1000);
-
-        ok(!doneSpy.called, "цикл и не начинался");
-        ok(!iteratorSpy.called, "цикл и не начинался");
-        ok(!asyncIterator.called, "цикл и не начинался");
-      },
-
-      testWithoutDone = function() {
-        var doneSpy = self.spy(),
-          asyncIterator = self.spy(),
-          iteratorSpy,
-          iterator;
-
-        iterator = function(item, intex, done) {
-          setTimeout(function() {
-            asyncIterator();
-            done();
-          }, 100);
-        };
-
-        iteratorSpy = self.spy(iterator);
-
-        each([1], iteratorSpy);
-
-        ok(iteratorSpy.called, "цикл инициализировался");
-
-        self.clock.tick(1000);
-
-        ok(!doneSpy.called, "цикл и не вызывался");
-        ok(iteratorSpy.calledOnce, "цикл и не начинался");
-        ok(asyncIterator.calledOnce, "цикл и не начинался");
+      iterator = function(item, intex, done) {
+        setTimeout(function() {
+          asyncIterator();
+          done();
+        }, 100);
       };
+
+      each(obj, iteratorSpy, doneSpy);
+
+      ok(!doneSpy.called, "цикл и не начался");
+      ok(!iteratorSpy.called, "цикл и не начался");
+      ok(!asyncIterator.called, "цикл и не начался");
+
+      self.clock.tick(1000);
+
+      ok(!doneSpy.called, "цикл и не начинался");
+      ok(!iteratorSpy.called, "цикл и не начинался");
+      ok(!asyncIterator.called, "цикл и не начинался");
+    };
+
+    testWithoutDone = function() {
+      var doneSpy = self.spy(),
+        asyncIterator = self.spy(),
+        iteratorSpy,
+        iterator;
+
+      iterator = function(item, intex, done) {
+        setTimeout(function() {
+          asyncIterator();
+          done();
+        }, 100);
+      };
+
+      iteratorSpy = self.spy(iterator);
+
+      each([1], iteratorSpy);
+
+      ok(iteratorSpy.called, "цикл инициализировался");
+
+      self.clock.tick(1000);
+
+      ok(!doneSpy.called, "цикл и не вызывался");
+      ok(iteratorSpy.calledOnce, "цикл и не начинался");
+      ok(asyncIterator.calledOnce, "цикл и не начинался");
+    };
 
     testForEmpty([]);
     testForEmpty({})

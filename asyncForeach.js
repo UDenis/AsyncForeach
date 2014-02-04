@@ -1,12 +1,14 @@
 (function(name, context) {
 
-  var toString = {}.toString,
+  var
+  toString = {}.toString,
     noop = function() {},
     objKeys;
 
   objKeys = Object.keys || function(obj) {
-    var keys = [];
-    for (var k in obj) {
+    var keys = [],
+      k;
+    for (k in obj) {
       keys.push(k);
     };
     return keys;
