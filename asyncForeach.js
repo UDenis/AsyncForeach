@@ -1,4 +1,4 @@
-window.asyncForeach = (function() {
+(function(name, context) {
 
 	var toString = {}.toString,
 		noop = function() {},
@@ -59,5 +59,5 @@ window.asyncForeach = (function() {
 		}
 	};
 
-	return asyncForeach;
-})();
+	context[name] =asyncForeach;
+})('asyncForeach', window);
