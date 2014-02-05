@@ -13,6 +13,7 @@
   });
 
   asyncTest("Тестируем на массиве", function() {
+
     expect(2);
 
     var arrayCopy = [],
@@ -185,6 +186,7 @@
     throws(function() {
       each([1]);
     }, "exception for not function occurred");
+
     start();
 
   });
